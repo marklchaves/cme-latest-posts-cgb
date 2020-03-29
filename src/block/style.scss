@@ -4,11 +4,13 @@
  * CSS for both Frontend+Backend.
  */
 
-.wp-block-cgb-block-mlc12-rock-and-roll  {
-  background: $red;
-  border: 0.2rem solid $black;
-  color: $black;
-  margin: 0 auto;
-  max-width: 740px;
-  padding: 2rem;
+ .post-categories a {
+  border: 1.5px solid black;
+  border-radius: 5px;
+  padding: .75%;
+}
+
+/* Fix for the custom index.php hooks. */
+.read-more-button-wrapper:last-child {
+  display: none !important;
 }
