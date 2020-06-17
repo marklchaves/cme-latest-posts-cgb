@@ -12,7 +12,21 @@ import "./style.scss";
 const { __ } = wp.i18n; // Import __() from wp.i18n
 const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.blocks
 
+import { __experimentalInputControl as InputControl } from '@wordpress/components';
+import { useState } from '@wordpress/compose';
+
 import ServerSideRender from '@wordpress/server-side-render';
+
+const {
+	InspectorControls,
+} = wp.blockEditor;
+const {
+    PanelBody,
+    PanelRow,
+} = wp.components;
+const {
+    Fragment
+} = wp.element;
 
 /**
  * Register: aa Gutenberg Block.
@@ -37,12 +51,32 @@ registerBlockType("cgb/block-mlc12-rock-and-roll", {
 		__("CGB Example"),
 		__("create-guten-block")
 	],
-
+	attributes: {
+		title: {
+			type: 'string',
+			default: 'hit me'
+		}
+	},
+	
 	// Live render in editor. Repurposing to prototype Ko-fi widget.
 	edit: function(props) {
+		const {
+			attributes: {
+				title,
+			},
+			setAttributes,
+		} = props;
+
 		kofiwidget2.init('Support Me on Ko-fi', '#29abe0', 'D1D7YARD');
 		return (
-			<article>
+			<Fragment>
+				<InspectorControls>
+   					<PanelBody>
+        				<PanelRow>
+							<input type="text" value="{title}"></input>
+        				</PanelRow>
+   					</PanelBody>
+				</InspectorControls>
 				<section id="ko-fi-widget">
 					<div dangerouslySetInnerHTML={{ __html: kofiwidget2.getHTML() }} />
 				</section>
@@ -55,7 +89,7 @@ registerBlockType("cgb/block-mlc12-rock-and-roll", {
 					attributes={props.attributes}
 					/>
 				</section>
-			</article>
+			</Fragment>
 		);
 	},
 
