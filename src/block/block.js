@@ -38,17 +38,28 @@ registerBlockType("cgb/block-mlc12-rock-and-roll", {
 		__("create-guten-block")
 	],
 
-	// Live render in editor.
+	// Live render in editor. Repurposing to prototype Ko-fi widget.
 	edit: function(props) {
+		kofiwidget2.init('Support Me on Ko-fi', '#29abe0', 'D1D7YARD');
 		return (
-			<ServerSideRender
-				block="cgb/block-mlc12-rock-and-roll"
-				attributes={props.attributes}
-			/>
+			<article>
+				<section id="ko-fi-widget">
+					<div dangerouslySetInnerHTML={{ __html: kofiwidget2.getHTML() }} />
+				</section>
+				<section>
+					<h2>
+						Latest Posts (Create Guten Block)
+					</h2>
+					<ServerSideRender
+						block="cgb/block-mlc12-rock-and-roll"
+					attributes={props.attributes}
+					/>
+				</section>
+			</article>
 		);
 	},
 
-	/* Original implementation.
+	/* Original implementation. Now handled in ini.php for server-side rendering.
 	edit: withSelect(select => {
 		return {
 			posts: select("core").getEntityRecords("postType", "post")
