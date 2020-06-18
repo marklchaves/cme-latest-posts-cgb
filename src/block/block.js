@@ -12,23 +12,16 @@ import "./style.scss";
 const { __ } = wp.i18n; // Import __() from wp.i18n
 const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.blocks
 
-// const { withSelect } = wp.data;
-
 // import { __experimentalInputControl as InputControl } from '@wordpress/components';
 // import { useState } from '@wordpress/compose';
 
-import ServerSideRender from '@wordpress/server-side-render';
+import ServerSideRender from "@wordpress/server-side-render";
 
-const {
-	InspectorControls,
-} = wp.blockEditor;
-const {
-    PanelBody,
-    PanelRow,
-} = wp.components;
-const {
-    Fragment
-} = wp.element;
+// const { withSelect } = wp.data; //import { withSelect } from "@wordpress/data";
+
+// const { InspectorControls } = wp.blockEditor;
+// const { PanelBody, PanelRow } = wp.components;
+const { Fragment } = wp.element;
 
 /**
  * Register: aa Gutenberg Block.
@@ -51,51 +44,57 @@ registerBlockType("cgb/block-mlc12-rock-and-roll", {
 	keywords: [
 		__("mlc12-rock-and-roll — CGB Block"),
 		__("CGB Example"),
-		__("create-guten-block")
+		__("create-guten-block"),
 	],
+	/* This breaks the server side rendering of posts. */
+	/*
 	attributes: {
 		title: {
-			type: 'string',
-			default: 'hit me'
-		}
+			type: "string",
+			default: "hit me",
+		},
 	},
-	
+	*/
+
 	// Live render in editor. Repurposing to prototype Ko-fi widget.
-	edit: function(props) {
+	edit: function (props) {
+		/*
 		const {
 			attributes: {
 				title,
 			},
 			setAttributes,
 		} = props;
+		*/
 
-		kofiwidget2.init('Support Me on Ko-fi', '#29abe0', 'D1D7YARD');
+		/*
+		function setTitle( event ) {
+			const value = event.target.value;
+			setAttributes( { title: value } );
+			event.preventDefault();
+		}
+		*/
+
+		//kofiwidget2.init("Support Me on Ko-fi", "#29abe0", "D1D7YARD");
+		//<div dangerouslySetInnerHTML={{ __html: kofiwidget2.getHTML() }} />
 		return (
 			<Fragment>
-				<InspectorControls>
-   					<PanelBody>
-        				<PanelRow>
-							<input type="text" value="{title}"></input>
-        				</PanelRow>
-   					</PanelBody>
-				</InspectorControls>
 				<section id="ko-fi-widget">
-					<div dangerouslySetInnerHTML={{ __html: kofiwidget2.getHTML() }} />
+					
 				</section>
 				<section>
-					<h2>
-						Latest Posts (Create Guten Block)
-					</h2>
+					<h2>Latest Posts (Create Guten Block)</h2>
 					<ServerSideRender
 						block="cgb/block-mlc12-rock-and-roll"
-					attributes={props.attributes}
+						attributes={props.attributes}
 					/>
 				</section>
 			</Fragment>
 		);
 	},
 
-	/* Original implementation. Now handled in ini.php for server-side rendering.
+	/* Original implementation. Now handled in ini.php for server-side rendering with the 
+	call above.
 	edit: withSelect(select => {
 		return {
 			posts: select("core").getEntityRecords("postType", "post")
