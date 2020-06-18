@@ -12,8 +12,10 @@ import "./style.scss";
 const { __ } = wp.i18n; // Import __() from wp.i18n
 const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.blocks
 
-import { __experimentalInputControl as InputControl } from '@wordpress/components';
-import { useState } from '@wordpress/compose';
+// const { withSelect } = wp.data;
+
+// import { __experimentalInputControl as InputControl } from '@wordpress/components';
+// import { useState } from '@wordpress/compose';
 
 import ServerSideRender from '@wordpress/server-side-render';
 
